@@ -1,5 +1,6 @@
 import time
 import random #Default random number generator
+import math
 import scipy
 
 #sample from a Bernoulli(px/py) distribution
