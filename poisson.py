@@ -103,16 +103,3 @@ true_var = mx/my
 print("mean="+str(float(mean))+" (true="+str(true_mean)+")")
 print("variance="+str(float(var))+" (true="+str(true_var)+")")
 print("KL(empirical||true)="+str(kl)) 
-#now plot
-if plot is None:
-    plot = (len(values)<=1000) #don't plot if huge
-if not plot: return
-ideal_counts = [n*math.exp(-x*x/(2.0*sigma2))/norm_const for x in values]
-plt.bar(values, counts)
-plt.plot(values, ideal_counts,'r')
-plt.title("Histogram of samples from discrete Gaussian\nsigma^2="+str(sigma2)+" n="+str(n))
-if save is None:
-    plt.show()
-else:
-    plt.savefig(save)
-plt.clf()
