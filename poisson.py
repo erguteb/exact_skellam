@@ -1,5 +1,6 @@
 import time
 import random #Default random number generator
+import scipy
 
 #sample from a Bernoulli(px/py) distribution
 #px, py are integers
@@ -54,3 +55,64 @@ def PoissonInt(mx, my, rng=None):
         num = Poisson1(rng)
         r = r + BinomialInt(num, mx, my, rng)
     return r
+
+n = 100000
+print('benchmarking time for generating poisson..... ')
+start = time.time()
+
+samples = [poisson.PoissonInt(mx,my) for i in range(n)]
+
+#now process
+samples.sort()
+values=[]
+counts=[]
+counter=None
+prev=None
+for sample in samples:
+    if prev is None: #initializing
+        prev=sample
+        counter=1
+    elif sample==prev: #still same element
+        counter=counter+1
+    else:
+        #add prev to histogram
+        values.append(prev)
+        counts.append(counter)
+        #start counting
+        prev=sample
+        counter=1
+#add final value
+values.append(prev)
+counts.append(counter)
+
+#print & sum
+sum=0
+sumsquared=0
+kl=0
+for i in range(len(values)):
+    if len(values)<=100: #don't print too much
+        print(str(values[i])+":\t"+str(counts[i]))
+    sum = sum + values[i]*counts[i]
+    sumsquared = sumsquared + values[i]*values[i]*counts[i]
+    kl = kl + counts[i]*(math.log(counts[i]*norm_const/n)+scipy.stats.poisson.pmf(values[i], mx/my))
+mean = Fraction(sum,n)
+var = Fraction(sumsquared,n)
+kl = kl/n
+true_mean = mx/my
+true_var = mx/my
+print("mean="+str(float(mean))+" (true="+str(true_mean)+")")
+print("variance="+str(float(var))+" (true="+str(true_var)+")")
+print("KL(empirical||true)="+str(kl)) 
+#now plot
+if plot is None:
+    plot = (len(values)<=1000) #don't plot if huge
+if not plot: return
+ideal_counts = [n*math.exp(-x*x/(2.0*sigma2))/norm_const for x in values]
+plt.bar(values, counts)
+plt.plot(values, ideal_counts,'r')
+plt.title("Histogram of samples from discrete Gaussian\nsigma^2="+str(sigma2)+" n="+str(n))
+if save is None:
+    plt.show()
+else:
+    plt.savefig(save)
+plt.clf()
