@@ -60,7 +60,7 @@ n = 100000
 print('benchmarking time for generating poisson..... ')
 start = time.time()
 
-samples = [poisson.PoissonInt(mx,my) for i in range(n)]
+samples = [PoissonInt(mx,my) for i in range(n)]
 
 #now process
 samples.sort()
@@ -102,4 +102,4 @@ true_mean = mx/my
 true_var = mx/my
 print("mean="+str(float(mean))+" (true="+str(true_mean)+")")
 print("variance="+str(float(var))+" (true="+str(true_var)+")")
-print("KL(empirical||true)="+str(kl)) 
+print("KL(empirical||true)="+str(kl))
