@@ -11,7 +11,7 @@ def sample_bernoulli(px,py,rng):
     else:
         return 0
 
-# sample from Bernoulli
+# sample from binomial(trials, px/py)
 def BinomialInt(trials, px, py, rng):
     if trials < 0: return -1
     if trials == 0: return 0
@@ -23,6 +23,7 @@ def BinomialInt(trials, px, py, rng):
             r = count + 1
     return count
 
+# Algorithm 1 in Duchon and Duvignau, 2016.
 def Poisson1(rng):
     ret = 1
     a = 1
@@ -45,9 +46,11 @@ def PoissonInt(mx, my, rng=None):
     if mx == 0 or (mx < 0 and my < 0) or (mx > 0 and my < 0): return 0
     r = 0
     while mx >= my:
+        # deduce the parameter by 1
         r = r + Poisson1(rng)
         mx = mx-my
     if mx > 0:
+        # see page 487 in Devroye, 1986.
         num = Poisson1(rng)
         r = r + BinomialInt(num, mx, my, rng)
     return r
