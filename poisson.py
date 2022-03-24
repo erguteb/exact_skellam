@@ -1,7 +1,7 @@
 import time
 import random #Default random number generator
 import math
-import scipy
+from scipy import stats
 
 #sample from a Bernoulli(px/py) distribution
 #px, py are integers
@@ -97,7 +97,7 @@ for i in range(len(values)):
         print(str(values[i])+":\t"+str(counts[i]))
     sum = sum + values[i]*counts[i]
     sumsquared = sumsquared + values[i]*values[i]*counts[i]
-    kl = kl + counts[i]*(math.log(counts[i]/n)-scipy.stats.poisson.logpmf(values[i], mx/my))
+    kl = kl + counts[i]*(math.log(counts[i]/n)-stats.poisson.logpmf(values[i], mx/my))
 mean = Fraction(sum,n)
 var = Fraction(sumsquared,n)
 kl = kl/n
