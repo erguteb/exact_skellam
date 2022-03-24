@@ -1,5 +1,6 @@
 from absl import app
 from absl import flags
+FLAGS = flags.FLAGS
 
 import poisson
 
