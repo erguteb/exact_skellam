@@ -20,8 +20,8 @@ def BinomialInt(trials, px, py, rng):
     r = 0
     for i in range(trials):
         if sample_bernoulli(px,py,rng) == 1:
-            r = count + 1
-    return count
+            r = r + 1
+    return r
 
 # Algorithm 1 in Duchon and Duvignau, 2016.
 def Poisson1(rng):
