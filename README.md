@@ -6,4 +6,6 @@ The algorithm is based on https://www.combinatorics.org/ojs/index.php/eljc/artic
 
 The implementation is based on https://github.com/peteroupc/peteroupc.github.io/blob/master/randomfunc.md#Poisson_Distribution
 
-We adopt the convention that from range(m), which uniformly samples an integer from 0 to m, is the only accessible randomness.
+We adopt the convention that
+    range(m)
+, which uniformly samples an integer from 0 to m, is the only accessible randomness.
