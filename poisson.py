@@ -75,8 +75,7 @@ def main(argv):
     while test_index < num_runs:
         start = time.time()
 
-        samples_1 = [PoissonInt(mx,my) for i in range(2*size)]
-        samples = [samples_1[i]-samples_1[i+size] for i in range(size)]
+        samples = [PoissonInt(mx,my) for i in range(size)]
 
         end = time.time()
         elapsed_time = end - start
