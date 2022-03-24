@@ -98,8 +98,8 @@ for i in range(len(values)):
     sum = sum + values[i]*counts[i]
     sumsquared = sumsquared + values[i]*values[i]*counts[i]
     kl = kl + counts[i]*(math.log(counts[i]/n)-stats.poisson.logpmf(values[i], mx/my))
-mean = Fraction(sum,n)
-var = Fraction(sumsquared,n)
+mean = sum/n)
+var = sumsquared/n
 kl = kl/n
 true_mean = mx/my
 true_var = mx/my
