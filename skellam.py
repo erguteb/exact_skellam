@@ -25,8 +25,8 @@ def main(argv):
     while test_index < num_runs:
         start = time.time()
 
-        samples = [poisson.PoissonInt(mx,my) for i in range(size)]
-        samples = [samples_1[i]-samples_1[i+size] for i in range(size)]
+        samples_poisson = [poisson.PoissonInt(mx,my) for i in range(size)]
+        samples = [samples_poisson[i]-samples_poisson[i+size] for i in range(size)]
 
         end = time.time()
         elapsed_time = end - start
