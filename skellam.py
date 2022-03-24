@@ -1,14 +1,4 @@
-import time
-import random #Default random number generator
-
 import poisson
-
-from absl import app
-from absl import flags
-FLAGS = flags.FLAGS
-flags.DEFINE_integer('mx', 1, 'mx for poissonint')
-flags.DEFINE_integer('my', 1, 'my for poisson int')
-flags.DEFINE_integer('m', 1, 'number of runs')
 
 def main(argv):
     del argv  # argv is not used.
