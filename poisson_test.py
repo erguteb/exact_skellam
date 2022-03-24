@@ -66,7 +66,7 @@ def main(argv):
         sumsquared = sumsquared + values[i]*values[i]*counts[i]
         kl = kl + counts[i]*(math.log(counts[i]/n)-stats.poisson.logpmf(values[i], mx/my))
     mean = sum/n
-    var = sumsquared/n
+    var = (sumsquared-sum*sum/n)/(n-1)
     kl = kl/n
     true_mean = mx/my
     true_var = mx/my
