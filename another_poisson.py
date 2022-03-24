@@ -31,7 +31,7 @@ def Poisson1(rng):
     g = 0
     k = 1
     while True:
-        i = rng.randrange(n)
+        i = rng.randrange(n+1)
         if i == n + 1: k = k + 1
         elif i > g:
             k = k - 1
