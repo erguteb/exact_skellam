@@ -1,6 +1,7 @@
-import poisson
 from absl import app
 from absl import flags
+
+import poisson
 
 def main(argv):
     del argv  # argv is not used.
