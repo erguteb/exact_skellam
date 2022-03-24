@@ -27,18 +27,20 @@ def BinomialInt(trials, px, py, rng):
 
 # Algorithm 1 in Duchon and Duvignau, 2016.
 def Poisson1(rng):
-    ret = 1
-    a = 1
-    b = 0
+    n = 1
+    g = 0
+    k = 1
     while True:
-        j = rng.randrange(a)
-        if j < a and j < b: return ret
-        if j == a:
-            ret = ret + 1
+        # generate a random integer from 1 to n+1, not including n+2
+        i = rng.randrange(1,n+2)
+        if i == n + 1:
+            k = k + 1
+        elif i > g:
+            k = k - 1
+            g = n + 1
         else:
-            ret = ret - 1
-            b = a + 1
-        a = a + 1
+            return k
+        n = n + 1
 
 def PoissonInt(mx, my, rng=None):
     if rng is None:
@@ -50,59 +52,9 @@ def PoissonInt(mx, my, rng=None):
     while mx >= my:
         # deduce the parameter by 1
         r = r + Poisson1(rng)
-        mx = mx-my
+        mx = mx - my
     if mx > 0:
         # see page 487 in Devroye, 1986.
         num = Poisson1(rng)
         r = r + BinomialInt(num, mx, my, rng)
     return r
-
-n = 100000
-mx = 95
-my = 3
-print('benchmarking time for generating poisson..... ')
-start = time.time()
-
-samples = [PoissonInt(mx,my) for i in range(n)]
-
-#now process
-samples.sort()
-values=[]
-counts=[]
-counter=None
-prev=None
-for sample in samples:
-    if prev is None: #initializing
-        prev=sample
-        counter=1
-    elif sample==prev: #still same element
-        counter=counter+1
-    else:
-        #add prev to histogram
-        values.append(prev)
-        counts.append(counter)
-        #start counting
-        prev=sample
-        counter=1
-#add final value
-values.append(prev)
-counts.append(counter)
-
-#print & sum
-sum=0
-sumsquared=0
-kl=0
-for i in range(len(values)):
-    if len(values)<=100: #don't print too much
-        print(str(values[i])+":\t"+str(counts[i]))
-    sum = sum + values[i]*counts[i]
-    sumsquared = sumsquared + values[i]*values[i]*counts[i]
-    kl = kl + counts[i]*(math.log(counts[i]/n)-stats.poisson.logpmf(values[i], mx/my))
-mean = sum/n
-var = sumsquared/n
-kl = kl/n
-true_mean = mx/my
-true_var = mx/my
-print("mean="+str(float(mean))+" (true="+str(true_mean)+")")
-print("variance="+str(float(var))+" (true="+str(true_var)+")")
-print("KL(empirical||true)="+str(kl))
