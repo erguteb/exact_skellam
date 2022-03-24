@@ -57,6 +57,8 @@ def PoissonInt(mx, my, rng=None):
     return r
 
 n = 100000
+mx = 1
+my = 100
 print('benchmarking time for generating poisson..... ')
 start = time.time()
 
