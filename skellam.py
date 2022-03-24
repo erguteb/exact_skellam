@@ -1,6 +1,11 @@
+import time
+
 from absl import app
 from absl import flags
 FLAGS = flags.FLAGS
+flags.DEFINE_integer('mx', 1, 'mx for poissonint')
+flags.DEFINE_integer('my', 1, 'my for poisson int')
+flags.DEFINE_integer('m', 1, 'number of runs')
 
 import poisson
 
