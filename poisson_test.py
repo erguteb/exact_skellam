@@ -4,7 +4,7 @@ from absl import flags
 FLAGS = flags.FLAGS
 flags.DEFINE_integer('mx', 1, 'mx for poissonint')
 flags.DEFINE_integer('my', 1, 'my for poisson int')
-flags.DEFINE_integer('size', 1, 'size of samples generated')
+flags.DEFINE_integer('n', 1, 'number of samples generated')
 
 import another_poisson
 
@@ -12,21 +12,21 @@ def main(argv):
     del argv  # argv is not used.
     assert FLAGS.mx is not None, 'Flag mx is missing.'
     assert FLAGS.my is not None, 'Flag my is missing.'
-    assert FLAGS.size is not None, 'Flag size is missing.'
+    assert FLAGS.n is not None, 'Flag n is missing.'
     mx = FLAGS.mx
     my = FLAGS.my
-    size = FLAGS.size
+    n = FLAGS.n
 
     test_index = 0
     overall_time = 0
     print('benchmarking time for generating Poisson..... ')
     start = time.time()
 
-    samples = [another_poisson.PoissonInt(mx,my) for i in range(size)]
+    samples = [another_poisson.PoissonInt(mx,my) for i in range(n)]
 
     end = time.time()
     elapsed_time = end - start
-    print('generated ', size, ' samples in ', elapsed_time, ' seconds.' )
+    print('generated ', n, ' samples in ', elapsed_time, ' seconds.' )
 
     #now process
     samples.sort()
