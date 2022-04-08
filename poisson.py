@@ -50,8 +50,9 @@ def PoissonInt(mx, my, rng=None):
     if mx == 0 or (mx < 0 and my < 0) or (mx > 0 and my < 0): return 0
     r = 0
     while mx >= my:
-        # deduce the parameter by 1
+        # sample from Poisson(1)
         r = r + Poisson1(rng)
+        # decrease lambda by 1... since sum of Poisson is Poisson
         mx = mx - my
     if mx > 0:
         # see page 487 in Devroye, 1986.
