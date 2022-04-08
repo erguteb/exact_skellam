@@ -26,7 +26,7 @@ def main(argv):
     print('benchmarking time for generating symmetric skellam..... ')
     while test_index < num_runs:
         start = time.time()
-
+        # Skellam is the difference between two independent Poisson
         samples = [poisson.PoissonInt(mx,my)-poisson.PoissonInt(mx,my) for i in range(size)]
 
         end = time.time()
