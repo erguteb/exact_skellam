@@ -12,8 +12,9 @@ flags.DEFINE_integer('n', 1, 'number of samples generated')
 
 import poisson
 
-# test the poisson distribution
-# see if it is indeed a poisson......
+# sample from the poisson distribution
+# compute the sample mean, variance, KL divergence with a real Poisson
+# to see if it is indeed a poisson......
 # code adapted from https://github.com/IBM/discrete-gaussian-differential-privacy
 def main(argv):
     del argv  # argv is not used.
